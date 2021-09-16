@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<Extern href="stdidcmd.h"/>
+	<Extern href="vsshlids.h"/>
+	<Commands package="guidDynamicMenuPackage">
+		<Menus>
+			<Menu guid="guidDynamicMenuPackageCmdSet" id="MyMenuController" priority="0x0100" type="Menu">
+				<Parent guid="guidDynamicMenuPackageCmdSet" id="MyMenuItemGroup" />
+				<CommandFlag>DynamicVisibility</CommandFlag>
+				<Strings>
+					<ButtonText>Grpc Client 生成</ButtonText>
+					<CommandName>GrpcClient Generate</CommandName>
+				</Strings>
+			</Menu>
+		</Menus>
+		<Groups>
+			<Group guid="guidDynamicMenuPackageCmdSet" id="MyMenuItemGroup" priority="0x4000" >
+				<Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
+			</Group>
+			<Group guid="guidDynamicMenuPackageCmdSet" id="MyMenuControllerGroup" priority="0x4000" >
+				<Parent guid="guidDynamicMenuPackageCmdSet" id="MyMenuController" />
+			</Group>
+		</Groups>
+		<Buttons>
+			<Button guid="guidDynamicMenuPackageCmdSet" id="cmdidMyDynamicStartCommand" priority="0x0001" >
+				<Parent guid="guidDynamicMenuPackageCmdSet" id="MyMenuControllerGroup" />
+				<Strings>
+					<CommandName>SubMenuCommand_GrpcGenerate</CommandName>
+					<ButtonText>生成项目</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidDynamicMenuPackageCmdSet" id="cmdidMyAnchorCommand" priority="0x0002" >
+				<Parent guid="guidDynamicMenuPackageCmdSet" id="MyMenuControllerGroup" />
+				<Strings>
+					<CommandName>SubMenuCommand_GrpcGenerateAndNugetPush</CommandName>
+					<ButtonText>生成发布</ButtonText>
+				</Strings>
+			</Button>
+		</Buttons>
+	</Commands>
+	<Symbols>
+		<GuidSymbol name="guidDynamicMenuPackage" value="{3dc81131-2db6-43c1-be6b-8aa6c7b56f97}" />
+		<GuidSymbol name="guidDynamicMenuPackageCmdSet" value="{b9378778-4265-475f-a0f0-13546abcb9cb}">
+			<IDSymbol name="MyMenuItemGroup" value="0x1020" />
+			<IDSymbol name="MyMenuControllerGroup" value="0x1025" />
+			<IDSymbol name="MyMenuController" value ="0x1030"/>
+			<IDSymbol name="cmdidMyDynamicStartCommand" value="0x0103" />
+			<IDSymbol name="cmdidMyAnchorCommand" value="0x0104" />
+		</GuidSymbol>
+	</Symbols>
+</CommandTable>
