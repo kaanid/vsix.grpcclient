@@ -31,10 +31,18 @@ namespace GrpcNugetTool.Service
             };
 
             var text = File.ReadAllText(options.ProtoFile);
-            var m = Regex.Match(text, "csharp_namespace\\s*=\\s*\"(\\S+?)\";");
-            if (m.Success)
+            var packageName = Regex.Match(text, "package\\s*\"(\\S+?)\";");
+            if (packageName.Success)
             {
-                _options.GrpcNamespaceName = m.Groups[1].Value;
+                _options.GrpcNamespaceName = packageName.Groups[1].Value;
+            }
+            else
+            {
+                var m = Regex.Match(text, "csharp_namespace\\s*=\\s*\"(\\S+?)\";");
+                if (m.Success)
+                    _options.GrpcNamespaceName = m.Groups[1].Value;
+                else
+                    throw new Exception("namespace is null");
             }
 
             var m2 = Regex.Match(text, "service\\s*(\\S+?)\\s*{");
