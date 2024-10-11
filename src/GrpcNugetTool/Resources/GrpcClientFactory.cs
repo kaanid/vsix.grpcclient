@@ -1,4 +1,4 @@
-﻿#if NET461
+﻿#if NET462
 using System;
 using Grpc.Core;
 
@@ -6,23 +6,30 @@ namespace $namespacename$
 {
     public class GrpcClientFactory
     {
-        private static Channel _channel;
-        private static string[] targets;
+        private static GrpcChannel? _channel;
+        private static string[]? targets;
 
-        public static void Init(string target)
+        public static void Init(string target, string subPath = "$subdirectoryHandlersubpath$")
         {
             if (string.IsNullOrWhiteSpace(target))
                 throw new ArgumentNullException(nameof(target));
 
-            targets = target.Split(',');
+            if (!string.IsNullOrWhiteSpace(subPath))
+                _channel = GrpcChannel.ForAddress(target, new GrpcChannelOptions
+                {
+                    HttpHandler = new GrpcWebHandler(new SubdirectoryHandler(new HttpClientHandler(), subPath))
+                });
+            else
+                _channel = GrpcChannel.ForAddress(target, new GrpcChannelOptions
+                {
+                    HttpHandler = new GrpcWebHandler(new HttpClientHandler())
+                });
         }
 
         public static $clientname$ Create()
         {
-            if (_channel == null || _channel.State == ChannelState.TransientFailure)
-            {
-                _channel = new Channel(targets[DateTime.Now.Millisecond % targets.Length], ChannelCredentials.Insecure);
-            }
+            if (_channel == null)
+                throw new Exception("channel is null");
 
             return new $clientname$(_channel);
         }

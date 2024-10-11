@@ -24,6 +24,7 @@ namespace GrpcNugetTool.Service
         public string ProtoFileName => Path.GetFileName(ProtoFile);
         public string GrpcNamespaceName { set; get; }
         public string GrpcServiceClassName { set; get; }
+        public string GrpcServiceSubdirectory { set; get; } = string.Empty;
 
         private string serviceName;
         public string ServiceName

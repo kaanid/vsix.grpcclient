@@ -51,6 +51,10 @@ namespace GrpcNugetTool.Service
                 _options.ServiceName = m2.Groups[1].Value;
                 _options.GrpcServiceClassName = $"{_options.ServiceName}.{_options.ServiceName}Client";
             }
+
+            var mSubdirectory= Regex.Match(text, "FWOPTION_Subdirectory\\s*=\\s*\"(\\S+?)\";");
+            if(mSubdirectory.Success)
+                _options.GrpcServiceSubdirectory=mSubdirectory.Groups[1].Value;
         }
 
         public void Run(bool isOpen = false)
@@ -84,7 +88,8 @@ namespace GrpcNugetTool.Service
                     .Replace("$clientname$", _options.GrpcServiceClassName)
                     .Replace("$extensionname$", _options.ServiceName)
                     .Replace("$protoname$", _options.ProtoFileName)
-                    .Replace("$versionname$", _options.Version);
+                    .Replace("$versionname$", _options.Version)
+                    .Replace("$subdirectoryHandlersubpath$", _options.GrpcServiceSubdirectory);
 
                 string newFileName = Path.GetFileName(f);
                 string newFilePath = Path.Combine(_options.NewProjectDir,newFileName=="Temp.csproj"? $"{_options.GrpcNamespaceName}.csproj" : newFileName);
