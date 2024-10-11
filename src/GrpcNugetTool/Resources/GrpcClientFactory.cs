@@ -1,6 +1,8 @@
 ﻿#if NET462
 using System;
-using Grpc.Core;
+using System.Net.Http;
+using Grpc.Net.Client;
+using Grpc.Net.Client.Web;
 
 namespace $namespacename$
 {

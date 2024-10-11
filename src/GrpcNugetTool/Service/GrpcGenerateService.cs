@@ -31,7 +31,7 @@ namespace GrpcNugetTool.Service
             };
 
             var text = File.ReadAllText(options.ProtoFile);
-            var packageName = Regex.Match(text, "package\\s*\"(\\S+?)\";");
+            var packageName = Regex.Match(text, "package\\s*(\\S+?);");
             if (packageName.Success)
             {
                 _options.GrpcNamespaceName = packageName.Groups[1].Value;

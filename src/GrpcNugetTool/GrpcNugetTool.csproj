@@ -48,6 +48,15 @@
     <Compile Include="DynamicMenuCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GrpcNugetToolPackage.cs" />
+    <Content Include="Resources\Extension.cs">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\GrpcClientFactory.cs">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\SubdirectoryHandler.cs">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Compile Include="Service\GrpcGenerateService.cs" />
     <Compile Include="Service\GrpcOptions.cs" />
     <Compile Include="Service\Util.cs" />
@@ -57,6 +66,7 @@
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
     </VSCTCompile>
+    <Content Include="Resources\Temp.csproj" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
