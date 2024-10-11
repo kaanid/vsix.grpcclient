@@ -117,13 +117,6 @@ namespace GrpcNugetTool
                     switch (menuCommand.CommandID.ID)
                     {
                         case DynamicMenuCommand.cmdidMyCommandSub1:
-                            VsShellUtilities.ShowMessageBox(
-                                _package, 
-                                Util.GetVsixCurrentDirectory(), 
-                                "GrpcClient Exception",
-                                OLEMSGICON.OLEMSGICON_INFO,
-                                OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
                             var service1 = new GrpcGenerateService(_dte2.ActiveDocument.FullName,false);
                             service1.Run(true);
                             break;

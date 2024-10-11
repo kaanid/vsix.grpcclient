@@ -16,7 +16,7 @@ namespace GrpcNugetTool.Service
         public static string GetVSIXResourcePathCache()
         {
             if (_toolPath == null)
-                _toolPath = GetVSIXResourcePath();
+                _toolPath = GetVSIXResourcePathV2();
             return _toolPath;
         }
         public static string GetVSIXResourcePath()
@@ -40,12 +40,22 @@ namespace GrpcNugetTool.Service
             throw new ArgumentNullException("未安装插件[1]");
         }
 
+        public static string GetVSIXResourcePathV2()
+        {
+            var path = GetVsixCurrentDirectory();
+            var resourcePath = Path.Combine(path, "Resources");
+            if (Directory.Exists(resourcePath))
+                return resourcePath;
+
+            throw new ArgumentNullException("插件不存在资源文件[2]");
+        }
+
         public static string GetVsixCurrentDirectory()
         {
             string codeBase = Assembly.GetExecutingAssembly().CodeBase;
             UriBuilder uri = new UriBuilder(codeBase);
             string path = Uri.UnescapeDataString(uri.Path);
-            return Path.GetDirectoryName(path);
+            return  Path.GetDirectoryName(path);
         }
 
         public static void CheckCmdMessageThrewException(string message)
