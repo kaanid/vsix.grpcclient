@@ -1,8 +1,11 @@
 ﻿#if dotnet
 using $namespacename$;
 using FW.Basic.GrpcClient;
+using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Grpc.Net.Client;
+using Grpc.Net.Client.Configuration;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Net.Http;
 
@@ -60,15 +63,11 @@ namespace Microsoft.Extensions.DependencyInjection
                 builder = services.AddGrpcClient<$clientname$>(o =>
                     {
                         o.Address = target;
-                        if (configOptions != null)
-                            o.ChannelOptionsActions.Add(configOptions);
                     });
             else
                 builder = services.AddGrpcClient<$clientname$>(name!, o =>
                 {
                     o.Address = target;
-                    if (configOptions != null)
-                        o.ChannelOptionsActions.Add(configOptions);
                 });
 
 
@@ -78,9 +77,32 @@ namespace Microsoft.Extensions.DependencyInjection
                     return new SubdirectoryHandler(new HttpClientHandler(), subPath!);
                 });
 
+            services.TryAddSingleton<ClientHeaderInterceptor>();
             builder.AddInterceptor<ClientHeaderInterceptor>();
             if (interceptor != null)
                 builder.AddInterceptor(() => interceptor);
+
+            builder.ConfigureChannel(op =>
+            {
+                op.ServiceConfig = new Grpc.Net.Client.Configuration.ServiceConfig
+                {
+                    MethodConfigs = {
+                        new MethodConfig {
+                            Names={ MethodName.Default},
+                            RetryPolicy=new RetryPolicy{
+                                MaxAttempts=3,
+                                InitialBackoff=TimeSpan.FromSeconds(1),
+                                MaxBackoff=TimeSpan.FromSeconds(4),
+                                BackoffMultiplier=2,
+                                RetryableStatusCodes = { StatusCode.Unavailable }
+                            }
+                        }
+                    }
+                };
+            });
+
+            if (configOptions != null)
+                builder.ConfigureChannel(configOptions);
 
             return services;
         }

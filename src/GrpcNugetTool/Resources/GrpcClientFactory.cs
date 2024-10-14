@@ -6,6 +6,7 @@ using Grpc.Net.Client.Web;
 using FW.Basic.GrpcClient;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
+using Grpc.Net.Client.Configuration;
 
 namespace $namespacename$
 {
@@ -18,20 +19,28 @@ namespace $namespacename$
         {
             if (string.IsNullOrWhiteSpace(target))
                 throw new ArgumentNullException(nameof(target));
-
-            GrpcChannel channel;
-            if (!string.IsNullOrWhiteSpace(subPath))
-                channel = GrpcChannel.ForAddress(target, new GrpcChannelOptions
+            var opt = new GrpcChannelOptions
+            {
+                HttpHandler = !string.IsNullOrWhiteSpace(subPath) ? new GrpcWebHandler(new SubdirectoryHandler(new HttpClientHandler(), subPath))
+                                : new GrpcWebHandler(new HttpClientHandler()),
+                ServiceConfig = new ServiceConfig
                 {
-                    HttpHandler = new GrpcWebHandler(new SubdirectoryHandler(new HttpClientHandler(), subPath))
-                });
-            else
-                channel = GrpcChannel.ForAddress(target, new GrpcChannelOptions
-                {
-                    HttpHandler = new GrpcWebHandler(new HttpClientHandler())
-                });
-
-            _channel=channel.Intercept(new ClientHeaderInterceptor());
+                    MethodConfigs = {
+                            new MethodConfig {
+                                Names={ MethodName.Default},
+                                RetryPolicy=new RetryPolicy{
+                                    MaxAttempts=3,
+                                    InitialBackoff=TimeSpan.FromSeconds(1),
+                                    MaxBackoff=TimeSpan.FromSeconds(4),
+                                    BackoffMultiplier=2,
+                                    RetryableStatusCodes = { StatusCode.Unavailable }
+                                }
+                            }
+                        }
+                }
+            };
+            GrpcChannel channel = GrpcChannel.ForAddress(target,opt);
+            _channel = channel.Intercept(new ClientHeaderInterceptor());
         }
 
         public static $clientname$ Create()
