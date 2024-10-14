@@ -4,6 +4,8 @@ using System.Net.Http;
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
 using FW.Basic.GrpcClient;
+using Grpc.Core;
+using Grpc.Core.Interceptors;
 
 namespace $namespacename$
 {

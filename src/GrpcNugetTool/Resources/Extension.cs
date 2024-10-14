@@ -1,5 +1,6 @@
 ﻿#if dotnet
 using $namespacename$;
+using FW.Basic.GrpcClient;
 using Grpc.Core.Interceptors;
 using Grpc.Net.Client;
 using System;
