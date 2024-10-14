@@ -21,11 +21,11 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="target"></param>
         /// <param name="interceptor"></param>
         /// <returns></returns>
-        public static IServiceCollection AddGrpc$extensionname$(this IServiceCollection services,
+        public static IHttpClientBuilder AddGrpc$extensionname$(this IServiceCollection services,
             Uri target,
             Interceptor? interceptor = null)
         {
-            return AddGrpcAIService(services, target, null, "$subdirectoryHandlersubpath$", null, interceptor);
+            return AddGrpc$extensionname$Core(services, target, null, "$subdirectoryHandlersubpath$", null, interceptor);
         }
 
         /// <summary>
@@ -36,9 +36,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="target"></param>
         /// <param name="interceptor"></param>
         /// <returns></returns>
-        public static IServiceCollection AddGrpc$extensionname$(this IServiceCollection services, string name, Uri target, Interceptor? interceptor = null)
+        public static IHttpClientBuilder AddGrpc$extensionname$(this IServiceCollection services, string name, Uri target, Interceptor? interceptor = null)
         {
-            return AddGrpcAIService(services, target, name, "$subdirectoryHandlersubpath$", null, interceptor);
+            return AddGrpc$extensionname$Core(services, target, name, "$subdirectoryHandlersubpath$", null, interceptor);
         }
         
         /// <summary>
@@ -51,7 +51,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="configOptions"></param>
         /// <param name="interceptor"></param>
         /// <returns></returns>
-        public static IServiceCollection AddGrpc$extensionname$(this IServiceCollection services,
+        public static IHttpClientBuilder AddGrpc$extensionname$Core(this IServiceCollection services,
             Uri target,
             string? name = null,
             string? subPath = null,
