@@ -77,6 +77,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     return new SubdirectoryHandler(new HttpClientHandler(), subPath!);
                 });
 
+            builder.AddInterceptor<ClientHeaderInterceptor>();
             if (interceptor != null)
                 builder.AddInterceptor(() => interceptor);
 

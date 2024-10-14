@@ -54,9 +54,6 @@
     <Content Include="Resources\GrpcClientFactory.cs">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\SubdirectoryHandler.cs">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <Compile Include="Service\GrpcGenerateService.cs" />
     <Compile Include="Service\GrpcOptions.cs" />
     <Compile Include="Service\Util.cs" />
