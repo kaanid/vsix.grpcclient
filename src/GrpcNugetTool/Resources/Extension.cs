@@ -104,7 +104,7 @@ namespace Microsoft.Extensions.DependencyInjection
             if (configOptions != null)
                 builder.ConfigureChannel(configOptions);
 
-            return services;
+            return builder;
         }
     }
 }
