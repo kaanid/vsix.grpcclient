@@ -12,43 +12,24 @@ namespace $namespacename$
 {
     public class GrpcClientFactory
     {
-        private static CallInvoker? _channel;
         private static string[]? targets;
+        public const string Name = "$clientname$";
 
         public static void Init(string target, string subPath = "$subdirectoryHandlersubpath$")
         {
             if (string.IsNullOrWhiteSpace(target))
                 throw new ArgumentNullException(nameof(target));
-            var opt = new GrpcChannelOptions
-            {
-                HttpHandler = !string.IsNullOrWhiteSpace(subPath) ? new GrpcWebHandler(new SubdirectoryHandler(new HttpClientHandler(), subPath))
-                                : new GrpcWebHandler(new HttpClientHandler()),
-                ServiceConfig = new ServiceConfig
-                {
-                    MethodConfigs = {
-                            new MethodConfig {
-                                Names={ MethodName.Default},
-                                RetryPolicy=new RetryPolicy{
-                                    MaxAttempts=3,
-                                    InitialBackoff=TimeSpan.FromSeconds(1),
-                                    MaxBackoff=TimeSpan.FromSeconds(4),
-                                    BackoffMultiplier=2,
-                                    RetryableStatusCodes = { StatusCode.Unavailable }
-                                }
-                            }
-                        }
-                }
-            };
-            GrpcChannel channel = GrpcChannel.ForAddress(target,opt);
-            _channel = channel.Intercept(new ClientHeaderInterceptor());
+
+            FW.Basic.GrpcClient.GrpcClientFactoryCore.Init(Name, target, subPath);
         }
 
         public static $clientname$ Create()
         {
-            if (_channel == null)
+            var channel = FW.Basic.GrpcClient.GrpcClientFactoryCore.Create(Name);
+            if (channel == null)
                 throw new Exception("channel is null");
 
-            return new $clientname$(_channel);
+            return new $clientname$(channel);
         }
     }
 }
