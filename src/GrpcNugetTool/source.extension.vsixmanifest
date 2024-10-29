@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="GrpcNugetTool.446f7675-91d0-40de-8bcf-7371e74fb5db" Version="1.0.0.66" Language="en-US" Publisher="dokw kaa" />
+        <Identity Id="GrpcNugetTool.446f7675-91d0-40de-8bcf-7371e74fb5db" Version="1.0.0.69" Language="en-US" Publisher="dokw kaa" />
         <DisplayName>GrpcNugetTool</DisplayName>
         <Description xml:space="preserve">Grpc 生成client</Description>
     </Metadata>
