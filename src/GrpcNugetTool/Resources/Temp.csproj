@@ -19,7 +19,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="FW.Basic.GrpcClient" Version="1.0.0" />
+		<PackageReference Include="FW.Basic.GrpcClient" Version="1.0.0.19" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' != 'net462'">
