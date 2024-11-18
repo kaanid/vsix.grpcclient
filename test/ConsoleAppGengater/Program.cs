@@ -14,7 +14,7 @@ namespace ConsoleAppGengater
             Console.WriteLine("Hello World!");
             var options = new GrpcOptions
             {
-                ProtoFile = @"F:\test\grpc\test\ConsoleAppGengater\Protos\greet.proto",
+                ProtoFile = @"F:\webapi\FW.Basic.AIService\src\Fanews.Grpc.AIServiceServer\Protos\AIService.proto",
                 ResourceProjectDir = @"F:\test\grpc\src\GrpcNugetTool\Resources",
                 NugetPush = false
             };

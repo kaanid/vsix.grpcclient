@@ -12,22 +12,19 @@ namespace $namespacename$
 {
     public class GrpcClientFactory
     {
-        private static string[]? targets;
         public const string Name = "$clientname$";
 
-        public static void Init(string target, string subPath = "$subdirectoryHandlersubpath$")
+        public static void Init(string fwapp,string target, string subPath = "$subdirectoryHandlersubpath$")
         {
             if (string.IsNullOrWhiteSpace(target))
                 throw new ArgumentNullException(nameof(target));
 
-            FW.Basic.GrpcClient.GrpcClientFactoryCore.Init(Name, target, subPath);
+            FW.Basic.GrpcClient.GrpcClientFactoryCore.Init(fwapp, Name, target, subPath);
         }
 
         public static $clientname$ Create()
         {
-            var channel = FW.Basic.GrpcClient.GrpcClientFactoryCore.Create(Name);
-            if (channel == null)
-                throw new Exception("channel is null");
+            var channel = FW.Basic.GrpcClient.GrpcClientFactoryCore.Create(Name) ?? throw new Exception("channel is null");
 
             return new $clientname$(channel);
         }

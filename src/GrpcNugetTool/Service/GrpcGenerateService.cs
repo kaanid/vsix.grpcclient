@@ -78,9 +78,13 @@ namespace GrpcNugetTool.Service
             var newProtoDir = Path.Combine(_options.NewProjectDir, "Protos");
             Directory.CreateDirectory(newProtoDir);
 
-            File.Copy(_options.ProtoFile, Path.Combine(newProtoDir, _options.ProtoFileName));
+            //File.Copy(_options.ProtoFile, Path.Combine(newProtoDir, _options.ProtoFileName));
+            var filetext = File.ReadAllText(_options.ProtoFile,Encoding.UTF8);
+            filetext = filetext.Replace("import \"google/api/annotations.proto\";", string.Empty);
+            filetext = Regex.Replace(filetext, "option\\s*\\(google.api.http\\)\\s*=\\s*{[\\s\\S]*?};", string.Empty);
+            File.WriteAllText(Path.Combine(newProtoDir, _options.ProtoFileName), filetext,Encoding.UTF8);
 
-            var files=Directory.GetFiles(_options.ResourceProjectDir);
+            var files = Directory.GetFiles(_options.ResourceProjectDir);
             foreach(var f in files)
             {
                 var text = File.ReadAllText(f)
