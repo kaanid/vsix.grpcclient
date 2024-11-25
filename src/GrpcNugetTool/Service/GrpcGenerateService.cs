@@ -117,7 +117,7 @@ namespace GrpcNugetTool.Service
 
             var nugetpackDir = Path.Combine(_options.NewProjectDir, "bin\\Release");
             var nugetpackName = $"{_options.GrpcNamespaceName}.{_options.Version}.nupkg";
-            message = Util.CmdRunAndReturn($"dotnet nuget push {nugetpackName} -s http://nuget.hzfanews.fw/nuget -k fanews@2018nuget", nugetpackDir);
+            message = Util.CmdRunAndReturn($"dotnet nuget push {nugetpackName} -s https://fwnuget.hzfanews.com/nuget -k fanews@2018nuget", nugetpackDir);
             Util.CheckCmdMessageThrewException(message);
         }
     }
