@@ -103,7 +103,7 @@ namespace GrpcNugetTool.Service
 
         private void Build()
         {
-            string message = Util.CmdRunAndReturn("dotnet restore -s http://nuget.hzfanews.fw/nuget -s https://api.nuget.org/v3/index.json", _options.NewProjectDir);
+            string message = Util.CmdRunAndReturn("dotnet restore -s https://fwnuget.hzfanews.com/nuget -s https://api.nuget.org/v3/index.json", _options.NewProjectDir);
             Util.CheckCmdMessageThrewException(message);
 
             message = Util.CmdRunAndReturn("dotnet build -c Release", _options.NewProjectDir);
