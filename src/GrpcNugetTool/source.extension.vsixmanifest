@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="GrpcNugetTool.446f7675-91d0-40de-8bcf-7371e74fb5db" Version="1.0.0.90" Language="en-US" Publisher="dokw kaa" />
+        <Identity Id="GrpcNugetTool.446f7675-91d0-40de-8bcf-7371e74fb5db" Version="1.0.0.91" Language="en-US" Publisher="dokw kaa" />
         <DisplayName>GrpcNugetTool</DisplayName>
         <Description xml:space="preserve">Grpc 生成client</Description>
     </Metadata>
     <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 18.0)" >
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 19.0)">
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
     </Installation>
